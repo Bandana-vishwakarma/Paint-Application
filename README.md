@@ -8,6 +8,7 @@ Install the required modules from terrminal via pip package manger.
 
 ```bash
 pip install tkinter
+pip install Pillow
 ```
 
 ## Usage
