@@ -16,12 +16,12 @@ class Paint(object):
         self.root.geometry("800x520")
         self.root.configure(background="white")
         self.root.resizable(0, 0)
-
-        """........important things........"""
+        
+        # Important things
         self.pen_color = "black"
         self.eraser_color = "white"
 
-        """............adding widgets to tkinter window.................."""
+        #Adding widgets to tkinter window
 
         self.color_frame = LabelFrame(self.root, text="color", font = ("arial", 15), bd=5, relief=RIDGE, bg="white")
         self.color_frame.place(x=0, y=0, width=70, height=185)
@@ -47,7 +47,7 @@ class Paint(object):
         self.canvas_color_button = Button(self.root, text="CANVAS", bg="white", bd=4, command=self.canvas, width=8, relief=RIDGE)
         self.canvas_color_button.place(x=0, y=277)
 
-        """..............creating a scale for pen and eraser size............."""
+        #Creating a scale for pen and eraser size
 
         self.pen_size_scale_frame = LabelFrame(self.root, text="size", bd=5, bg="white", font=("arial", 15, 'bold'), relief=RIDGE)
         self.pen_size_scale_frame.place(x=0, y=310, height=200, width=70)
@@ -56,15 +56,15 @@ class Paint(object):
         self.pen_size.set(1)
         self.pen_size.grid(row=0, column=1, padx=15)
 
-        """...............creating Canvas............"""
+        #Creating Canvas
 
         self.canvas = Canvas(self.root, bg="white", bd=5, relief=GROOVE, height=500, width=700)
         self.canvas.place(x=80, y=0)
 
-        """...................bind the canvas with mouse drag...................."""
+        #Bind the canvas with mouse drag
         self.canvas.bind("<B1-Motion>", self.paint)
 
-    """..............functions are defined here............"""
+    #Functions are defined here
     def paint(self, event):
         x1, y1 = (event.x-2, event.y-2)
         x2, y2 = (event.x+2, event.y+2)
