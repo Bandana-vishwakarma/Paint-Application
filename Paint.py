@@ -1,12 +1,16 @@
+#Import required modules
 from tkinter import*
 from tkinter.ttk import Scale
 from tkinter import colorchooser, filedialog, messagebox
 import PIL.ImageGrab as ImageGrab
 
 
+#Paint class consisting of all the methods and properties of the application
 class Paint(object):
 
     def __init__(self, root):
+        
+        #Properties of the objects
         self.root = root
         self.root.title("Paint")
         self.root.geometry("800x520")
@@ -68,17 +72,21 @@ class Paint(object):
         self.canvas.create_oval(x1, y1, x2, y2, fill=self.pen_color, outline=self.pen_color, width=self.pen_size.get())
 
     def select_color(self, col):
+        #Selects the color
         self.pen_color = col
 
     def eraser(self):
+        # Select the eraser
         self.pen_color = self.eraser_color
 
     def canvas(self):
+        #changes canvas colour
         color = colorchooser.askcolor()
         self.canvas.configure(background=color[1])
         self.eraser_color = color[1]
 
     def save_paint(self):
+        #Save the painting
         try:
             filename = filedialog.asksaveasfilename(defaultextension=".jpg")
             x = self.root.winfo_rootx() + self.canvas.winfo_x()
@@ -89,9 +97,11 @@ class Paint(object):
             messagebox.showinfo("paint says", "image is saved as" + str(filename))
 
         except:
+            #Show error dialog is something went wrong while saving
             messagebox.showerror("paint says", "enable to save image,\n something went wrong" )
 
 
+#Initializing the main app
 if __name__ == "__main__":
     root = Tk()
     p = Paint(root)
