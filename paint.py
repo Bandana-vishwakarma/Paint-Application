@@ -1,23 +1,27 @@
+#Import required modules
 from tkinter import*
 from tkinter.ttk import Scale
 from tkinter import colorchooser, filedialog, messagebox
 import PIL.ImageGrab as ImageGrab
 
 
+#Paint class consisting of all the methods and properties of the application
 class Paint(object):
 
     def __init__(self, root):
+        
+        #Properties of the objects
         self.root = root
         self.root.title("Paint")
         self.root.geometry("800x520")
         self.root.configure(background="white")
         self.root.resizable(0, 0)
-
-        """........important things........"""
+        
+        # Important things
         self.pen_color = "black"
         self.eraser_color = "white"
 
-        """............adding widgets to tkinter window.................."""
+        #Adding widgets to tkinter window
 
         self.color_frame = LabelFrame(self.root, text="color", font = ("arial", 15), bd=5, relief=RIDGE, bg="white")
         self.color_frame.place(x=0, y=0, width=70, height=185)
@@ -43,7 +47,7 @@ class Paint(object):
         self.canvas_color_button = Button(self.root, text="CANVAS", bg="white", bd=4, command=self.canvas, width=8, relief=RIDGE)
         self.canvas_color_button.place(x=0, y=277)
 
-        """..............creating a scale for pen and eraser size............."""
+        #Creating a scale for pen and eraser size
 
         self.pen_size_scale_frame = LabelFrame(self.root, text="size", bd=5, bg="white", font=("arial", 15, 'bold'), relief=RIDGE)
         self.pen_size_scale_frame.place(x=0, y=310, height=200, width=70)
@@ -52,15 +56,15 @@ class Paint(object):
         self.pen_size.set(1)
         self.pen_size.grid(row=0, column=1, padx=15)
 
-        """...............creating Canvas............"""
+        #Creating Canvas
 
         self.canvas = Canvas(self.root, bg="white", bd=5, relief=GROOVE, height=500, width=700)
         self.canvas.place(x=80, y=0)
 
-        """...................bind the canvas with mouse drag...................."""
+        #Bind the canvas with mouse drag
         self.canvas.bind("<B1-Motion>", self.paint)
 
-    """..............functions are defined here............"""
+    #Functions are defined here
     def paint(self, event):
         x1, y1 = (event.x-2, event.y-2)
         x2, y2 = (event.x+2, event.y+2)
@@ -68,17 +72,21 @@ class Paint(object):
         self.canvas.create_oval(x1, y1, x2, y2, fill=self.pen_color, outline=self.pen_color, width=self.pen_size.get())
 
     def select_color(self, col):
+        #Selects the color
         self.pen_color = col
 
     def eraser(self):
+        # Select the eraser
         self.pen_color = self.eraser_color
 
     def canvas(self):
+        #changes canvas colour
         color = colorchooser.askcolor()
         self.canvas.configure(background=color[1])
         self.eraser_color = color[1]
 
     def save_paint(self):
+        #Save the painting
         try:
             filename = filedialog.asksaveasfilename(defaultextension=".jpg")
             x = self.root.winfo_rootx() + self.canvas.winfo_x()
@@ -89,9 +97,11 @@ class Paint(object):
             messagebox.showinfo("paint says", "image is saved as" + str(filename))
 
         except:
+            #Show error dialog is something went wrong while saving
             messagebox.showerror("paint says", "enable to save image,\n something went wrong" )
 
 
+#Initializing the main app
 if __name__ == "__main__":
     root = Tk()
     p = Paint(root)
